@@ -1,8 +1,8 @@
-const { EncodeModel } = require("../models/encode.models");
+const { RemoteDownloadModel } = require("../models/remote-download.models");
 
 exports.taskUpdateDb = async (taskId, data = {}) => {
   try {
-    await EncodeModel.updateOne({ _id: taskId }, { ...data });
+    await RemoteDownloadModel.updateOne({ _id: taskId }, { ...data });
     return true;
   } catch (error) {
     return null;

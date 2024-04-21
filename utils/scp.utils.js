@@ -4,8 +4,8 @@ const { Client } = require("node-scp");
 
 exports.SCPRemoteHLS = async ({ ssh, file }) => {
   try {
-    const local_file = file.file_convert;
-    const save_dir = file.remote_dir;
+    const local_file = file.file_local;
+    const save_dir = file.save_dir;
     if (!fs.existsSync(local_file)) throw new Error(`Local File Not found`);
     return new Promise(async function (resolve, reject) {
       Client(ssh)

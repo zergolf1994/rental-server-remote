@@ -10,8 +10,10 @@ exports.RemoteModel = mongoose.model(
       type: { type: String, require: true },
       source: { type: String, require: true },
       userId: { type: String, require: true },
+      mime_type: { type: String },
       folderId: { type: String },
       categoryId: { type: String },
+      fileId: { type: String },
     },
     {
       timestamps: true,

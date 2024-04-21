@@ -1,9 +1,13 @@
 "use strict";
 const express = require("express");
-const { startRemote, videoRemote } = require("../controllers/remote.controllers");
 const router = express.Router();
 
-router.get("/", startRemote);
-router.get("/video", videoRemote);
+const {
+  mediaRemote,
+  startRemote,
+} = require("../controllers/remote.controllers");
+
+router.get("/start", startRemote);
+router.get("/media", mediaRemote);
 
 module.exports = router;

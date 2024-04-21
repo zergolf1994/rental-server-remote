@@ -29,12 +29,26 @@ exports.randomString = (length = 8, options = { ...dataChar }) => {
   return result;
 };
 
-exports.randomSlug = async (length = 8, options = { ...dataChar }) => {
+exports.slugFile = async (length = 8, options = { ...dataChar }) => {
   try {
     const slug = this.randomString(length, options);
     const count = await FileModel.countDocuments({ slug });
     if (count > 0) {
-      return this.randomSlug(length + 1, options);
+      return this.randomString(length + 1, options);
+    }
+    return slug;
+  } catch (error) {
+    console.log("slugFile", error);
+    return null;
+  }
+};
+
+exports.slugMedia = async (length = 8, options = { ...dataChar }) => {
+  try {
+    const slug = this.randomString(length, options);
+    const count = await MediaModel.countDocuments({ slug });
+    if (count > 0) {
+      return this.randomString(length + 1, options);
     }
     return slug;
   } catch (error) {
@@ -42,15 +56,3 @@ exports.randomSlug = async (length = 8, options = { ...dataChar }) => {
   }
 };
 
-exports.randomSlugVideo = async (length = 8, options = { ...dataChar }) => {
-  try {
-    const slug = this.randomString(length, options);
-    const count = await MediaModel.countDocuments({ slug });
-    if (count > 0) {
-      return this.randomSlug(length + 1, options);
-    }
-    return slug;
-  } catch (error) {
-    return null;
-  }
-};

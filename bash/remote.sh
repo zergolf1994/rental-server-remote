@@ -11,7 +11,7 @@ fi
 
 task=$(echo $data | jq -r ".task")
 
-if [[ $task != "encode" ]]; then
+if [[ $task != "download" ]]; then
     echo "Task: ${task}"
     exit 1
 fi
@@ -19,7 +19,7 @@ fi
 downloadId=$(echo $data | jq -r ".downloadId")
 curl -s "http://${localhost}/task/update/${downloadId}?task=remote&percent=0" > /dev/null
 
-data_remote=$(curl -sLf "http://${localhost}/remote/video" | jq -r ".")
+data_remote=$(curl -sLf "http://${localhost}/remote/media" | jq -r ".")
 error_remote=$(echo $data_remote | jq -r ".error")
 
 if [[ $error_remote == true ]]; then
