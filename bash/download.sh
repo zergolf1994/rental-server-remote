@@ -26,7 +26,6 @@ downloadId=$(echo $data | jq -r ".downloadId")
 remoteId=$(echo $data | jq -r ".remoteId")
 save_dir=$(echo $data | jq -r ".save_dir")
 
-
 # Check if the folder exists
 if [ -d "$save_dir" ]; then
     echo "has dir"
@@ -70,19 +69,23 @@ fi
 
 echo "Downloaded"
 
-mime_type=$(file --mime-type -b ${outPut})
-data_update="{\"mime_type\":\"${mime_type}\"}"
-# ทำการร้องขอ POST
-response_update=$(curl -X POST -H "Content-Type: application/json" -d "$data_update" -sLf "http://${localhost}/update/mimeType/${remoteId}"  | jq -r ".")
+data_mime_type=$(echo $data | jq -r ".mime_type")
 
-error_update=$(echo $response_update | jq -r ".error")
-if [[ $error == true ]]; then
-    msgr_update=$(echo $response_update | jq -r ".msg")
-    echo "${msg}"
-    exit 1
+if [[ $data_mime_type != "null" ]]; then
+    mime_type=$(file --mime-type -b ${outPut})
+    data_update="{\"mime_type\":\"${mime_type}\"}"
+    # ทำการร้องขอ POST
+    response_update=$(curl -X POST -H "Content-Type: application/json" -d "$data_update" -sLf "http://${localhost}/update/mimeType/${remoteId}"  | jq -r ".")
+
+    error_update=$(echo $response_update | jq -r ".error")
+    if [[ $error == true ]]; then
+        msgr_update=$(echo $response_update | jq -r ".msg")
+        echo "${msg}"
+        exit 1
+    fi
+    echo "Update MimeType"
+
 fi
-
-echo "Update MimeType"
 #leep 1
 
 #ส่งต่อไปยังประมวลผล

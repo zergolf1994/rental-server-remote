@@ -60,7 +60,7 @@ exports.createTask = async (req, res) => {
 
     const saveDb = await RemoteDownloadModel.create(data_download);
     if (!saveDb?._id) throw new Error("Error");
-    
+
     // คำสั่ง เพื่อดำเนินการ ส่งต่อไปยัง bash
     shell.exec(
       `sudo bash ${global.dir}/bash/download.sh`,
@@ -137,6 +137,7 @@ exports.dataTask = async (req, res) => {
           task: 1,
           percent: 1,
           save_dir: 1,
+          mime_type: 1,
         },
       },
     ]);
@@ -369,7 +370,7 @@ exports.dataMedia = async (req, res) => {
 
     let data = {
       extension,
-      file
+      file,
     };
     return res.json(data);
   } catch (err) {
