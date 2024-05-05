@@ -18,10 +18,6 @@ fi
 
 type=$(echo $data | jq -r ".type")
 
-if [[ $type != "gdrive" ]]; then
-    echo "type: ${type}"
-    exit 1
-fi
 downloadId=$(echo $data | jq -r ".downloadId")
 remoteId=$(echo $data | jq -r ".remoteId")
 save_dir=$(echo $data | jq -r ".save_dir")
