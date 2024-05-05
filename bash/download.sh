@@ -67,6 +67,11 @@ if [[ $type == "gdrive" ]]; then
     fi
 fi
 
+if [[ $type == "mp4" ]]; then
+    source=$(echo $data | jq -r ".source")
+    curl "${source}" -o ${outPut} --progress-bar > ${downloadtmpSave} 2>&1
+fi
+
 echo "Downloaded"
 
 data_mime_type=$(echo $data | jq -r ".mime_type")
