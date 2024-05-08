@@ -108,7 +108,7 @@ exports.mediaRemote = async (req, res) => {
     const video = await get_video_details(download.file_media);
 
     if (video.error) {
-      throw new Error(video.msg);
+      throw new Error("Video:" + video.msg);
     }
 
     const slug = await slugFile(12);
@@ -159,7 +159,7 @@ exports.mediaRemote = async (req, res) => {
       if (!scp_data?.error) {
         dataMedia.serverId = storage.serverId;
       } else {
-        throw new Error(scp_data?.msg);
+        throw new Error("SCP:" + scp_data?.msg);
       }
     }
 
