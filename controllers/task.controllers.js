@@ -191,7 +191,7 @@ exports.cancleTask = async (req, res) => {
 
     // คำสั่ง เพื่อดำเนินการ ส่งต่อไปยัง bash
     shell.exec(
-      `sudo bash ${global.dir}/bash/cancle-encode.sh`,
+      `sudo bash ${global.dir}/bash/cancle-remote.sh`,
       { async: false, silent: false },
       function (data) {}
     );

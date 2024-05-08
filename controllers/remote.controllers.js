@@ -108,6 +108,16 @@ exports.mediaRemote = async (req, res) => {
     const video = await get_video_details(download.file_media);
 
     if (video.error) {
+      await RemoteDownloadModel.deleteOne({ _id: download?.downloadId });
+      await RemoteModel.deleteOne({ _id: download?.remoteId });
+
+      // คำสั่ง เพื่อดำเนินการ ส่งต่อไปยัง bash
+      shell.exec(
+        `sudo bash ${global.dir}/bash/cancle-remote.sh`,
+        { async: false, silent: false },
+        function (data) {}
+      );
+
       throw new Error("Video:" + video.msg);
     }
 
